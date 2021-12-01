@@ -21,7 +21,8 @@
       "@layouts/*": ["components/layouts/*"],
       "@components/*": ["components/*"],
       "@client/*": ["client/*"],
-      "@data/*": ["data/*"]
+      "@data/*": ["data/*"],
+      "@types/*": ["types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
