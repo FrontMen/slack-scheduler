@@ -1,28 +1,28 @@
 import { createContext, useContext, FC, useState } from 'react';
 import 'firebase/auth';
-import '@client/auth';
+import '@data/auth';
 
 type DataContextProps = {
-  error?: Error;
+  error?: unknown;
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
-  setError: (value?: Error) => void;
+  setError: (value?: unknown) => void;
 };
 
 const dataContext = createContext<DataContextProps>({
   isLoading: false,
   setIsLoading: (value: boolean) => {},
-  setError: (value?: Error) => {},
+  setError: (value?: unknown) => {},
 });
 
 export const useDataContext = () => useContext(dataContext);
 
 export const DataProvider: FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error>();
+  const [error, setError] = useState<unknown>();
 
   const handleSetIsLoading = (value: boolean) => setIsLoading(value);
-  const handleSetError = (value?: Error) => setError(value);
+  const handleSetError = (value?: unknown) => setError(value);
 
   return (
     <dataContext.Provider

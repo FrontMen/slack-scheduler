@@ -12,7 +12,7 @@ import {
   Box,
 } from '@material-ui/core';
 import { useAuthUser, useDataContext } from '@context/.';
-import { FullpageLoader } from '@components/.';
+import { FullpageLoader, Error } from '@components/.';
 import { AccountCircle } from '@material-ui/icons';
 
 type Props = {};
@@ -87,6 +87,7 @@ const AdminLayout: FC<Props> = ({ children }) => {
       </header>
       <Container>
         <main>
+          {error && <Error error={error} />}
           {isLoading ? (
             <Box p={2} display='flex' justifyContent='center'>
               <CircularProgress />

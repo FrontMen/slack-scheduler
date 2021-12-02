@@ -1,4 +1,4 @@
-import { getDB } from '@client/store';
+import { getDB } from '@data/store';
 import { User } from '@types/.';
 import { doc, getDoc } from 'firebase/firestore';
 
