@@ -1,73 +1,80 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { getSlackUserByEmail } from '@serverdata/user';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getChannel, initClient } from '@serverdata/client';
+import { User } from '@slack/web-api/dist/response/UsersLookupByEmailResponse';
+import { Block, ChatPostMessageArguments, KnownBlock } from '@slack/web-api/dist/methods';
+import { ChatPostMessageResponse } from '@slack/web-api';
 
-type Data = {
-  name: string;
+type Message = {
+  text: string;
+  blocks: (KnownBlock | Block)[];
 };
+const createBirthdayMessage = (user?: User): Message => {
+  if (!user)
+    return {
+      text: '',
+      blocks: [],
+    };
 
-const SLACK_BOT_TOKEN = process.env.SLACK_TOKEN;
+  const text = `@${user.name} Danny Torrence left the following review for your property:`;
 
-const payload = {
-  ok: true,
-  channel: 'general',
-  as_user: true,
-  text: 'New Paid Time Off request from Fred Enriquez',
-  blocks: [
-    {
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        text: 'Danny Torrence left the following review for your property:',
-      },
-    },
-    {
-      type: 'section',
-      block_id: 'section567',
-      text: {
-        type: 'mrkdwn',
-        text: '<https://example.com|Overlook Hotel> \n :star: \n Doors had too many axe holes, guest in room 237 was far too rowdy, whole place felt stuck in the 1920s.',
-      },
-      accessory: {
-        type: 'image',
-        image_url:
-          'https://is5-ssl.mzstatic.com/image/thumb/Purple3/v4/d3/72/5c/d3725c8f-c642-5d69-1904-aa36e4297885/source/256x256bb.jpg',
-        alt_text: 'Haunted hotel image',
-      },
-    },
-    {
-      type: 'section',
-      block_id: 'section789',
-      fields: [
-        {
+  return {
+    text,
+    blocks: [
+      {
+        type: 'section',
+        text: {
           type: 'mrkdwn',
-          text: '*Average Rating*\n1.0',
+          text,
         },
-      ],
-    },
-  ],
+      },
+      {
+        type: 'section',
+        block_id: 'section567',
+        text: {
+          type: 'mrkdwn',
+          text: '<https://example.com|Overlook Hotel> \n :star: \n Doors had too many axe holes, guest in room 237 was far too rowdy, whole place felt stuck in the 1920s.',
+        },
+        accessory: {
+          type: 'image',
+          image_url: user.profile?.image_48,
+          alt_text: 'Profile picture',
+        },
+      },
+      {
+        type: 'section',
+        block_id: 'section789',
+        fields: [
+          {
+            type: 'mrkdwn',
+            text: '*Average Rating*\n1.0',
+          },
+        ],
+      },
+    ],
+  };
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  await fetch('https://slack.com/api/chat.postMessage', {
-    method: 'POST',
-    body: JSON.stringify(payload),
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Content-Length': payload.length,
-      Authorization: `Bearer ${SLACK_BOT_TOKEN}`,
-      Accept: 'application/json',
-    },
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Server error ${res.status}`);
-      }
+const call = async (req: NextApiRequest, res: NextApiResponse<ChatPostMessageResponse>) => {
+  const email = 'steven.straatemans@frontmen.nl';
+  const { user } = await getSlackUserByEmail(email);
 
-      return res.json();
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  const web = initClient();
 
-  res.status(200).json({ name: 'John Doe' });
+  const payload: ChatPostMessageArguments = {
+    ok: true,
+    channel: getChannel(),
+    as_user: true,
+    ...createBirthdayMessage(user),
+  };
+
+  try {
+    const data = await web.chat.postMessage(payload);
+    res.status(200).json(data);
+  } catch (e) {
+    throw new Error(`Server error ${res.status}`);
+  }
 };
+
+export default call;
