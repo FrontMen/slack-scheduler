@@ -1,4 +1,3 @@
-import { Employee } from '@types/.';
 import { getAllEmployees } from '@data/employees';
 import { useGetData } from './getData';
 

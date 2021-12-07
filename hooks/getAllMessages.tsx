@@ -1,4 +1,3 @@
-import { Message } from '@types/.';
 import { getAllMessages } from '@data/messages';
 
 import { useGetData } from './getData';

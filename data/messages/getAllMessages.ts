@@ -1,6 +1,5 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { getDB } from '@data/store';
-import { Message } from '@types/.';
 
 export const getAllMessages = async (): Promise<Message[]> => {
   const db = await getDB();

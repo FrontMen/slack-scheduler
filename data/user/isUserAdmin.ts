@@ -1,5 +1,4 @@
 import { getDB } from '@data/store';
-import { User } from '@types/.';
 import { doc, getDoc } from 'firebase/firestore';
 
 export const isUserAdmin = async (uid: string): Promise<boolean> => {

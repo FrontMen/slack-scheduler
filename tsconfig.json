@@ -21,10 +21,10 @@
       "@layouts/*": ["components/layouts/*"],
       "@components/*": ["components/*"],
       "@data/*": ["data/*"],
-      "@serverdata/*": ["server/data/*"],
-      "@types/*": ["types/*"]
+      "@serverdata/*": ["server/data/*"]
     }
   },
+  "types": ["./types"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
