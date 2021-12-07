@@ -6,11 +6,10 @@ type Props = {
 };
 
 const Error: FC<Props> = ({ error }) => {
-  console.log({ error });
-  let errorString;
+  let errorString: string = '';
   if (typeof error === 'string') {
     errorString = error; // works, `e` narrowed to string
-  } else if (error.message) {
+  } else if ((error as Error).message) {
     errorString = (error as Error).message; // works, `e` narrowed to Error
   }
 
