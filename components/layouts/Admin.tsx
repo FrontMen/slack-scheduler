@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -50,6 +51,13 @@ const AdminLayout: FC<Props> = ({ children }) => {
         <AppBar position='static'>
           <Container>
             <Toolbar>
+              <Link href='/'>
+                <MenuItem>Birthdays</MenuItem>
+              </Link>
+              <Link href='/messages'>
+                <MenuItem>Messages</MenuItem>
+              </Link>
+
               <div className={classes.spacer}></div>
 
               {user && (

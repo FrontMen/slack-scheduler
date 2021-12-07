@@ -8,7 +8,7 @@ export const getAllEmployees = async (): Promise<Employee[]> => {
 
   const data: Employee[] = [];
   result.forEach((doc) => {
-    data.push(doc.data() as Employee);
+    data.push({ id: doc.id, ...doc.data() } as Employee);
   });
 
   return data;
