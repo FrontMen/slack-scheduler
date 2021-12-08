@@ -1,5 +1,15 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, Timestamp } from 'firebase/firestore';
 import { getDB } from '@data/store';
+
+const convertTimestamps = (data) =>
+  data.map((obj) => {
+    Object.keys(obj).map((key) => {
+      if (obj[key] instanceof Timestamp) {
+        obj[key] = obj[key].seconds;
+      }
+    });
+    return obj;
+  });
 
 export const getAllEmployees = async (): Promise<Employee[]> => {
   const db = await getDB();
@@ -10,5 +20,5 @@ export const getAllEmployees = async (): Promise<Employee[]> => {
     data.push({ id: doc.id, ...doc.data() } as Employee);
   });
 
-  return data;
+  return convertTimestamps(data);
 };

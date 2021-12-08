@@ -1,16 +1,25 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { AdminLayout } from '@layouts/.';
 import useGetAllMessages from '@hooks/getAllMessages';
 
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { List, ListItem, ListItemText, Fab } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
+import { getAllMessages } from '@data/messages';
 
-const Home: NextPage = () => {
-  const { data } = useGetAllMessages();
+type Props = {
+  data: Message[];
+};
 
+const Home: NextPage<Props> = ({ data }) => {
   return (
     <AdminLayout>
       <h2>Messages</h2>
+      <Link href='/messages/new'>
+        <Fab color='primary' aria-label='add'>
+          <Add />
+        </Fab>
+      </Link>
 
       <List component='ul'>
         {data.map((message) => (
@@ -21,10 +30,17 @@ const Home: NextPage = () => {
           </Link>
         ))}
       </List>
-
-      <pre>{JSON.stringify(data, null, 2)}</pre>
     </AdminLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await getAllMessages();
+  return {
+    props: {
+      data,
+    }, // will be passed to the page component as props
+  };
 };
 
 export default Home;

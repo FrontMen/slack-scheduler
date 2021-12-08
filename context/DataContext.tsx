@@ -26,7 +26,12 @@ export const DataProvider: FC = ({ children }) => {
 
   return (
     <dataContext.Provider
-      value={{ isLoading, error, setIsLoading: handleSetIsLoading, setError: handleSetError }}
+      value={{
+        isLoading,
+        error,
+        setIsLoading: handleSetIsLoading,
+        setError: handleSetError,
+      }}
     >
       {children}
     </dataContext.Provider>

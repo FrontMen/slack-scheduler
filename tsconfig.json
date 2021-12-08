@@ -20,6 +20,7 @@
       "@context/*": ["context/*"],
       "@layouts/*": ["components/layouts/*"],
       "@components/*": ["components/*"],
+      "@forms/*": ["forms/*"],
       "@data/*": ["data/*"],
       "@serverdata/*": ["server/data/*"]
     }

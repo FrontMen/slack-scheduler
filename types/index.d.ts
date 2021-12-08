@@ -6,8 +6,9 @@ type Employee = {
 };
 
 type Message = {
-  id: string;
+  id?: string;
   title: string;
+  text: string;
 };
 
 type User = {

@@ -2,8 +2,9 @@ import { getAllEmployees } from '@data/employees';
 import { useGetData } from './getData';
 
 const useGetAllEmployees = () => {
-  const data = useGetData<Employee[]>(getAllEmployees, []);
-  return { ...data };
+  const { data, ...result } = useGetData<Employee[]>(getAllEmployees);
+  if (!data) return { data: [], ...result };
+  return { data, ...result };
 };
 
 export default useGetAllEmployees;

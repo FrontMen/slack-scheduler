@@ -96,13 +96,12 @@ const AdminLayout: FC<Props> = ({ children }) => {
       <Container>
         <main>
           {error && <Error error={error} />}
-          {isLoading ? (
+          {isLoading && (
             <Box p={2} display='flex' justifyContent='center'>
               <CircularProgress />
             </Box>
-          ) : (
-            children
           )}
+          {children}
         </main>
       </Container>
       <footer></footer>
