@@ -16,6 +16,8 @@ const Message: NextPage<Props> = () => {
   const { data, reload } = useGetMessage(id as string);
   const { submitData } = usePostMessage();
 
+  if (!data) return null;
+
   const onSubmit = (data: any) => {
     submitData(data);
     reload();

@@ -15,7 +15,11 @@ const MessageForm: FC<Props> = ({ onSubmit, data }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller name='id' control={control} render={({ field }) => <TextField {...field} />} />
+      <Controller
+        name='id'
+        control={control}
+        render={({ field }) => <TextField type='hidden' {...field} />}
+      />
       <div>
         <Controller
           name='title'

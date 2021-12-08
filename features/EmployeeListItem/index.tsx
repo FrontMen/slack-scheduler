@@ -43,7 +43,7 @@ const EmployeeListItem: FC<Props> = ({ employee }) => {
             <Controller
               name='id'
               control={control}
-              render={({ field }) => <TextField {...field} />}
+              render={({ field }) => <TextField type='hidden' {...field} />}
             />
             <div>
               <Controller

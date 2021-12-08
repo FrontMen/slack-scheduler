@@ -1,25 +1,30 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { AdminLayout } from '@layouts/.';
-import useGetAllMessages from '@hooks/getAllMessages';
-
-import { List, ListItem, ListItemText, Fab } from '@material-ui/core';
+import { Fab } from '@components/.';
+import { List, ListItem, ListItemText } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { getAllMessages } from '@data/messages';
+import { useRouter } from 'next/router';
 
 type Props = {
   data: Message[];
 };
 
 const Home: NextPage<Props> = ({ data }) => {
+  const router = useRouter();
+
+  const handleStartNew = () => {
+    router.push('/messages/new');
+  };
+
   return (
     <AdminLayout>
       <h2>Messages</h2>
-      <Link href='/messages/new'>
-        <Fab color='primary' aria-label='add'>
-          <Add />
-        </Fab>
-      </Link>
+
+      <Fab onClick={handleStartNew} aria-label='add'>
+        <Add />
+      </Fab>
 
       <List component='ul'>
         {data.map((message) => (
