@@ -1,8 +1,14 @@
+import { FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
 import { TextField, Button } from '@material-ui/core';
 
-const MessageForm = ({ onSubmit, data }) => {
+type Props = {
+  data: Message;
+  onSubmit: (data: Message) => void;
+};
+
+const MessageForm: FC<Props> = ({ onSubmit, data }) => {
   const { handleSubmit, control } = useForm({
     defaultValues: data,
   });

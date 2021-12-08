@@ -1,8 +1,8 @@
 type Employee = {
-  id: string;
+  id?: string;
   email: string;
-  birthdate: number;
-  startDate: number;
+  birthDate: string;
+  startDate?: string;
 };
 
 type Message = {

@@ -1,17 +1,28 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import { AdminLayout } from '@layouts/.';
-import useGetAllEmployees from '@hooks/getAllEmployees';
 import { getAllEmployees } from '@data/employees';
+import { List } from '@material-ui/core';
+import { EmployeeListItem } from '@features/.';
 
 type Props = {
   data: Employee[];
 };
 const Home: NextPage<Props> = ({ data }) => {
-  console.log(data);
+  const newEmployee = {
+    id: '',
+    email: 'new',
+    startDate: '',
+    birthDate: '',
+  };
 
   return (
     <AdminLayout>
       <h2>Birthdays</h2>
+      <List>
+        {data.map((employee) => (
+          <EmployeeListItem key={employee.id} employee={employee} />
+        ))}
+      </List>
     </AdminLayout>
   );
 };
