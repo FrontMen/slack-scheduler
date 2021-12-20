@@ -4,15 +4,12 @@ import { AdminLayout } from '@layouts/.';
 import { Fab } from '@components/.';
 import { List, ListItem, ListItemText } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { getAllMessages } from '@data/messages';
 import { useRouter } from 'next/router';
+import useGetAllMessages from '@hooks/getAllMessages';
 
-type Props = {
-  data: Message[];
-};
-
-const Home: NextPage<Props> = ({ data }) => {
+const Home: NextPage = () => {
   const router = useRouter();
+  const { data } = useGetAllMessages();
 
   const handleStartNew = () => {
     router.push('/messages/new');
@@ -40,11 +37,8 @@ const Home: NextPage<Props> = ({ data }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await getAllMessages();
   return {
-    props: {
-      data,
-    }, // will be passed to the page component as props
+    props: {}, // will be passed to the page component as props
   };
 };
 
