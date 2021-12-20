@@ -1,8 +1,7 @@
 import { FC, useState } from 'react';
-import { ListItem, ListItemText, Collapse, Button, TextField } from '@mui/material';
-import { DatePicker } from '@components/.';
+import { ListItem, ListItemText, Collapse } from '@mui/material';
+import EmployeeForm from '@forms/EmployeeForm';
 import { makeStyles } from '@mui/styles';
-import { useForm, Controller } from 'react-hook-form';
 import usePostEmployee from '@hooks/postEmployee';
 
 const useStyles = makeStyles({
@@ -20,9 +19,6 @@ const EmployeeListItem: FC<Props> = ({ employee }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { submitData } = usePostEmployee();
   const classes = useStyles();
-  const { handleSubmit, control } = useForm({
-    defaultValues: employee,
-  });
 
   const toggleOpen = () => {
     setIsOpen((v) => !v);
@@ -39,30 +35,7 @@ const EmployeeListItem: FC<Props> = ({ employee }) => {
       </div>
       <div>
         <Collapse unmountOnExit in={isOpen} timeout={300}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              name='id'
-              control={control}
-              render={({ field }) => <TextField type='hidden' {...field} />}
-            />
-            <div>
-              <Controller
-                name='email'
-                control={control}
-                render={({ field }) => <TextField type='email' {...field} />}
-              />
-            </div>
-
-            <DatePicker
-              name='birthDate'
-              label='BirthDate'
-              control={control}
-              rules={{ required: true }}
-            />
-            <DatePicker name='startDate' label='StartDate' control={control} />
-
-            <Button type='submit'>Submit</Button>
-          </form>
+          <EmployeeForm onSubmit={onSubmit} data={employee} />
         </Collapse>
       </div>
     </ListItem>
