@@ -7,7 +7,6 @@ export const getMessage = async (id: string): Promise<Message | null> => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log('Document data:', docSnap.data());
     return { id, ...docSnap.data() } as Message;
   }
   // doc.data() will be undefined in this case

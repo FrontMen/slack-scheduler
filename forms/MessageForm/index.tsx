@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { DatePicker, MessageExample } from '@components/.';
-import { TextField, Button, Select } from '@material-ui/core';
+import { TextField, Button, Select } from '@mui/material';
 import { messageType } from 'utils/constants';
 
 type Props = {

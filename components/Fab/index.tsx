@@ -1,6 +1,6 @@
 import { FC, ReactChild } from 'react';
-import { Fab as MUIFab } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Fab as MUIFab } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   root: {

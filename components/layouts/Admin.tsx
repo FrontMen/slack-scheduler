@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import {
   AppBar,
   Toolbar,
@@ -11,10 +11,10 @@ import {
   Container,
   CircularProgress,
   Box,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useAuthUser, useDataContext } from '@context/.';
 import { FullpageLoader, Error } from '@components/.';
-import { AccountCircle } from '@material-ui/icons';
+import { AccountCircle } from '@mui/icons-material';
 
 type Props = {};
 

@@ -2,8 +2,8 @@ import type { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { AdminLayout } from '@layouts/.';
 import { Fab } from '@components/.';
-import { List, ListItem, ListItemText } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import { List, ListItem, ListItemText } from '@mui/material';
+import { Add } from '@mui/icons-material';
 import { getAllMessages } from '@data/messages';
 import { useRouter } from 'next/router';
 

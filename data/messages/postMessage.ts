@@ -21,8 +21,6 @@ export const postMessage = async (data: Message, user: User): Promise<string> =>
   newData.createDate = Date.now();
   newData.createdBy = user.uid;
 
-  console.log({ newData });
-
   const docRef = await addDoc(collection(db, 'messages'), newData);
   return docRef.id;
 };

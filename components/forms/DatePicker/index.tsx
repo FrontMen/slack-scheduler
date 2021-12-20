@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
-import { TextField } from '@material-ui/core';
+import { TextField } from '@mui/material';
 import { format } from 'date-fns';
 
 type Props = {

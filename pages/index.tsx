@@ -1,7 +1,7 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import { AdminLayout } from '@layouts/.';
 import { getAllEmployees } from '@data/employees';
-import { List } from '@material-ui/core';
+import { List } from '@mui/material';
 import { EmployeeListItem } from '@features/.';
 
 type Props = {
