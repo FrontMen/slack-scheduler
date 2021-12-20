@@ -7,8 +7,8 @@ export type ReturnDataType<T> = {
 };
 
 const useGetData = <T,>(
-  id: string,
-  getDataFnc: (id: string) => Promise<T | null>
+  getDataFnc: (id: string | undefined) => Promise<T | null> | (() => Promise<T | null>),
+  id?: string
 ): ReturnDataType<T> => {
   const [data, setData] = useState<T | null>();
   const [innerId, setInnerId] = useState(id);

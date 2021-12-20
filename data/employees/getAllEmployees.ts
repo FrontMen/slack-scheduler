@@ -1,4 +1,4 @@
-import { collection, getDocs, Timestamp } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { getDB } from '@data/store';
 
 export const getAllEmployees = async (): Promise<Employee[]> => {

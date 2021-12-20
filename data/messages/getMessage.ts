@@ -1,7 +1,8 @@
 import { doc, getDoc } from 'firebase/firestore';
 import { getDB } from '@data/store';
 
-export const getMessage = async (id: string): Promise<Message | null> => {
+export const getMessage = async (id: string | undefined): Promise<Message | null> => {
+  if (!id) return null;
   const db = await getDB();
   const docRef = doc(db, 'messages', id);
   const docSnap = await getDoc(docRef);
