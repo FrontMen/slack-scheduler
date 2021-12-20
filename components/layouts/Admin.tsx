@@ -43,7 +43,7 @@ const AdminLayout: FC<Props> = ({ children }) => {
     signOut();
   };
 
-  if (isUserLoading || !isLoggedIn) return <FullpageLoader />;
+  if (isUserLoading || !isLoggedIn || !isAdmin) return <FullpageLoader />;
 
   return (
     <>

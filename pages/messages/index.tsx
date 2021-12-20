@@ -30,7 +30,7 @@ const Home: NextPage<Props> = ({ data }) => {
         {data.map((message) => (
           <Link key={message.id} href={`/messages/${message.id}`}>
             <ListItem button>
-              <ListItemText primary={message.title} secondary='Jan 9, 2014' />
+              <ListItemText primary={message.title} secondary={message.plannedSendDate} />
             </ListItem>
           </Link>
         ))}

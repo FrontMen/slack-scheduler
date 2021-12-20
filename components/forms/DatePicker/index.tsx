@@ -18,10 +18,7 @@ const DatePicker: FC<Props> = ({ control, rules, name, label }) => {
         control={control}
         rules={rules}
         render={({ field }) => {
-          const formatedDate = field.value ? format(new Date(field.value), 'yyyy-MM-dd') : '';
-          const newField = { ...field, value: formatedDate };
-
-          return <TextField type='date' {...newField} label={label} />;
+          return <TextField type='date' {...field} label={label} />;
         }}
       />
     </div>

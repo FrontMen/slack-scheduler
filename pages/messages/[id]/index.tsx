@@ -2,7 +2,6 @@ import type { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { AdminLayout } from '@layouts/.';
 import MessageForm from '@forms/MessageForm';
-import { getMessage } from '@data/messages';
 import useGetMessage from '@hooks/getMessage';
 import usePostMessage from '@hooks/postMessage';
 
