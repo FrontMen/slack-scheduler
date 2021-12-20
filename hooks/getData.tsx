@@ -3,18 +3,22 @@ import { useDataContext } from '@context/DataContext';
 
 export type ReturnDataType<T> = {
   data: T | null | undefined;
-  reload: () => void;
+  reload: (val: string) => void;
 };
 
-const useGetData = <T,>(getDataFnc: () => Promise<T | null>): ReturnDataType<T> => {
+const useGetData = <T,>(
+  id: string,
+  getDataFnc: (id: string) => Promise<T | null>
+): ReturnDataType<T> => {
   const [data, setData] = useState<T | null>();
+  const [innerId, setInnerId] = useState(id);
   const { setIsLoading, setError } = useDataContext();
   const [isStartReload, setIsStartReload] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const result = (await getDataFnc()) as T;
+        const result = (await getDataFnc(innerId)) as T;
         setData(result);
         setError();
       } catch (e) {
@@ -32,7 +36,8 @@ const useGetData = <T,>(getDataFnc: () => Promise<T | null>): ReturnDataType<T> 
     }
   }, [isStartReload]);
 
-  const reload = () => {
+  const reload = (val: string) => {
+    setInnerId(val);
     setIsStartReload(true);
   };
 

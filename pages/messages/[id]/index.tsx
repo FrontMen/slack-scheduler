@@ -12,21 +12,26 @@ type Props = {
 const Message: NextPage<Props> = () => {
   const router = useRouter();
   const { id } = router.query;
+  console.log({ id });
   const { data, reload } = useGetMessage(id as string);
   const { submitData } = usePostMessage();
 
-  if (!data) return null;
+  if (!data && id !== 'new') return null;
 
-  const onSubmit = (data: any) => {
-    submitData(data);
-    reload();
+  const onSubmit = async (data: any) => {
+    const newId = await submitData(data);
+
+    if (id === 'new') {
+      router.push(`/messages/${newId}`);
+    }
+    reload(newId);
   };
 
   return (
     <AdminLayout>
       <h2>Message</h2>
 
-      <MessageForm onSubmit={onSubmit} data={data} />
+      <MessageForm onSubmit={onSubmit} data={data ? data : ({} as Message)} />
     </AdminLayout>
   );
 };

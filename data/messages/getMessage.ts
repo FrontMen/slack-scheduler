@@ -6,6 +6,7 @@ export const getMessage = async (id: string): Promise<Message | null> => {
   const docRef = doc(db, 'messages', id);
   const docSnap = await getDoc(docRef);
 
+  console.log(111, { id });
   if (docSnap.exists()) {
     return { id, ...docSnap.data() } as Message;
   }

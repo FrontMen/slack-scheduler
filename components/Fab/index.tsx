@@ -18,9 +18,11 @@ type Props = {
 const Fab: FC<Props> = ({ children, ...props }) => {
   const classes = useStyles();
   return (
-    <MUIFab {...props} color='primary' className={classes.root}>
-      {children as ReactChild}
-    </MUIFab>
+    <div className={classes.root}>
+      <MUIFab {...props} color='primary'>
+        {children as ReactChild}
+      </MUIFab>
+    </div>
   );
 };
 
