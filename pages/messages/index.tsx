@@ -25,16 +25,6 @@ const Home: NextPage<Props> = ({ data }) => {
       <Fab onClick={handleStartNew} aria-label='add'>
         <Add />
       </Fab>
-
-      <List component='ul'>
-        {data.map((message) => (
-          <Link key={message.id} href={`/messages/${message.id}`}>
-            <ListItem button>
-              <ListItemText primary={message.title} secondary={message.plannedSendDate} />
-            </ListItem>
-          </Link>
-        ))}
-      </List>
     </AdminLayout>
   );
 };
