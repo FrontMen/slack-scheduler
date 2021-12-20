@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 const AdminLayout: FC<Props> = ({ children }) => {
   const { signOut, isLoggedIn, isLoading: isUserLoading, user, isAdmin } = useAuthUser();
 
-  console.log({ user });
   const [isMenuOpen, setisMenuOpen] = useState(false);
   const router = useRouter();
   const classes = useStyles();
