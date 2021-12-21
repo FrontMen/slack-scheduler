@@ -2,17 +2,27 @@ import type { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { AdminLayout } from '@layouts/.';
 import { Fab } from '@components/.';
-import { List, ListItem, ListItemText } from '@mui/material';
+import { IconButton, List, ListItem, ListItemText } from '@mui/material';
+import { Delete as DeleteIcon } from '@mui/icons-material';
 import { Add } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import useGetAllMessages from '@hooks/getAllMessages';
+import { deleteMessage } from '@data/messages';
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { data } = useGetAllMessages();
+  const { data, reload } = useGetAllMessages();
 
   const handleStartNew = () => {
     router.push('/messages/new');
+  };
+
+  const handleDelete = async (id: string | undefined) => {
+    if (!id) return;
+    if (confirm('Are you sure you want to delete this message?')) {
+      await deleteMessage(id);
+      reload();
+    }
   };
 
   return (
@@ -25,11 +35,19 @@ const Home: NextPage = () => {
 
       <List component='ul'>
         {data.map((message) => (
-          <Link key={message.id} href={`/messages/${message.id}`}>
-            <ListItem button>
+          <ListItem
+            key={message.id}
+            button
+            secondaryAction={
+              <IconButton edge='end' aria-label='delete' onClick={() => handleDelete(message.id)}>
+                <DeleteIcon />
+              </IconButton>
+            }
+          >
+            <Link href={`/messages/${message.id}`}>
               <ListItemText primary={message.title} secondary={message.plannedSendDate} />
-            </ListItem>
-          </Link>
+            </Link>
+          </ListItem>
         ))}
       </List>
     </AdminLayout>
