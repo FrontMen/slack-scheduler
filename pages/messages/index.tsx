@@ -16,6 +16,7 @@ import { Add } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import useGetAllMessages from '@hooks/getAllMessages';
 import { deleteMessage } from '@data/messages';
+import { getMessageTypeIcon } from 'utils/messageType';
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -42,25 +43,31 @@ const Home: NextPage = () => {
       </Fab>
 
       <List component='ul'>
-        {data.map((message) => (
-          <ListItem
-            key={message.id}
-            button
-            secondaryAction={
-              <IconButton edge='end' aria-label='delete' onClick={() => handleDelete(message.id)}>
-                <DeleteIcon />
-              </IconButton>
-            }
-          >
-            <ListItemAvatar>{message.messageType}</ListItemAvatar>
-            <Link href={`/messages/${message.id}`}>
-              <ListItemText
-                primary={message.title}
-                secondary={<SecondaryItem message={message} />}
-              />
-            </Link>
-          </ListItem>
-        ))}
+        {data.map((message) => {
+          const Icon: FC = getMessageTypeIcon(message.messageType);
+
+          return (
+            <ListItem
+              key={message.id}
+              button
+              secondaryAction={
+                <IconButton edge='end' aria-label='delete' onClick={() => handleDelete(message.id)}>
+                  <DeleteIcon />
+                </IconButton>
+              }
+            >
+              <ListItemAvatar aria-label={message.messageType} title={message.messageType}>
+                <Icon />
+              </ListItemAvatar>
+              <Link href={`/messages/${message.id}`}>
+                <ListItemText
+                  primary={message.title}
+                  secondary={<SecondaryItem message={message} />}
+                />
+              </Link>
+            </ListItem>
+          );
+        })}
       </List>
     </AdminLayout>
   );

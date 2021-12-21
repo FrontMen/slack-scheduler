@@ -38,7 +38,6 @@ const MessageForm: FC<Props> = ({ onSubmit, data }) => {
           >
             <MenuItem value={undefined}>Select a type</MenuItem>
             <MenuItem value={messageType.NEWEMPLOYEE}>New Employee</MenuItem>
-            <MenuItem value={messageType.BIRTHDAY}>Birthday</MenuItem>
             <MenuItem value={messageType.PHOTOEVENT}>Event with photos</MenuItem>
             <MenuItem value={messageType.TRANSFER}>Transfermarket</MenuItem>
             <MenuItem value={messageType.WORKANNIVERSARY}>Work anniversary</MenuItem>
