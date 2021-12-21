@@ -1,0 +1,12 @@
+name: cron-birthdays
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check Birthdays
+        run: |
+          curl --request POST \
+          --url 'https://slack-scheduler-dev.vercel.app/api/birthday'
