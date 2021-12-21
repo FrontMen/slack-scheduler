@@ -2,32 +2,34 @@
 import { getSlackUserByEmail } from '@serverdata/user';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getChannel, initClient } from '@serverdata/client';
-import { User } from '@slack/web-api/dist/response/UsersLookupByEmailResponse';
-import { Block, ChatPostMessageArguments, KnownBlock } from '@slack/web-api/dist/methods';
+import { ChatPostMessageArguments } from '@slack/web-api/dist/methods';
 import { ChatPostMessageResponse } from '@slack/web-api';
-import { getTemplate } from 'server/slack/templates/birthday';
-import { getBirthdayToSend } from '@data/messages/getBirthdayToSend';
+import { getMessageToSend } from '@data/messages/getMessageToSend';
 
 const call = async (req: NextApiRequest, res: NextApiResponse<ChatPostMessageResponse>) => {
-  const employee = await getBirthdayToSend();
-  console.log({ employee });
-  if (!employee) {
-    throw new Error(`No employee found`);
-  }
+  const message = await getMessageToSend();
 
-  const { user } = await getSlackUserByEmail(employee.email);
+  const email = 'steven.straatemans@frontmen.nl';
+  const { user } = await getSlackUserByEmail(email);
+
+  const messageType = 'TRANSFER';
+  const { getTemplate } = require(`./../../server/slack/templates/${messageType.toLowerCase()}`);
+
+  console.log(1111, getTemplate);
 
   if (!user) {
-    throw new Error(`no user found on address: ${employee.email}`);
+    throw new Error(`no user found on address: ${email}`);
   }
 
   const web = initClient();
+
+  console.log(getTemplate(user, message));
 
   const payload: ChatPostMessageArguments = {
     ok: true,
     channel: getChannel(),
     as_user: true,
-    ...getTemplate(user, employee),
+    ...getTemplate(user, message),
   };
 
   try {

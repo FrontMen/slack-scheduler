@@ -1,7 +1,9 @@
 import { User } from '@slack/web-api/dist/response/UsersLookupByEmailResponse';
 
 export const getTemplate = (user: User, message: Message) => {
+  const text = `${user.real_name} has a new project`;
   return {
+    text,
     blocks: [
       {
         type: 'image',
@@ -12,7 +14,7 @@ export const getTemplate = (user: User, message: Message) => {
         type: 'header',
         text: {
           type: 'plain_text',
-          text: `${user.real_name} has a new project`,
+          text,
           emoji: true,
         },
       },

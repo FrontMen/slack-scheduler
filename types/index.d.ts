@@ -2,6 +2,7 @@ type Employee = {
   id?: string;
   email: string;
   birthDate: string;
+  birthDay: string;
   startDate?: string;
 };
 
@@ -14,6 +15,7 @@ type Message = {
   lastUpdateDate: number;
   lastUpdatedBy: string;
   plannedSendDate: string;
+  sendDate: string;
   messageType: MessageType;
 };
 
