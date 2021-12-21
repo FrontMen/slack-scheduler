@@ -3,7 +3,7 @@ import { useDataContext } from '@context/DataContext';
 
 export type ReturnDataType<T> = {
   data: T | null | undefined;
-  reload: (val: string) => void;
+  reload: (val?: string) => void;
 };
 
 const useGetData = <T,>(
@@ -36,7 +36,7 @@ const useGetData = <T,>(
     }
   }, [isStartReload]);
 
-  const reload = (val: string) => {
+  const reload = (val?: string) => {
     setInnerId(val);
     setIsStartReload(true);
   };

@@ -14,11 +14,7 @@ const EmployeeForm: FC<Props> = ({ onSubmit, data }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name='id'
-        control={control}
-        render={({ field }) => <input type='hidden' {...field} />}
-      />
+      <input type='hidden' {...register('id')} />
       <div>
         <TextField {...register('email')} label='Email' />
       </div>

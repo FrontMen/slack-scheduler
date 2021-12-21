@@ -19,11 +19,7 @@ const MessageForm: FC<Props> = ({ onSubmit, data }) => {
     <>
       <MessageExample message={watchAllFields} />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name='id'
-          control={control}
-          render={({ field }) => <input type='hidden' {...field} />}
-        />
+        <input type='hidden' {...register('id')} />
         <div>
           <TextField {...register('title')} label='Title' required={true} />
         </div>

@@ -1,8 +1,16 @@
+import { FC } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { AdminLayout } from '@layouts/.';
 import { Fab } from '@components/.';
-import { IconButton, List, ListItem, ListItemText } from '@mui/material';
+import {
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Typography,
+} from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import { Add } from '@mui/icons-material';
 import { useRouter } from 'next/router';
@@ -44,13 +52,29 @@ const Home: NextPage = () => {
               </IconButton>
             }
           >
+            <ListItemAvatar>{message.messageType}</ListItemAvatar>
             <Link href={`/messages/${message.id}`}>
-              <ListItemText primary={message.title} secondary={message.plannedSendDate} />
+              <ListItemText
+                primary={message.title}
+                secondary={<SecondaryItem message={message} />}
+              />
             </Link>
           </ListItem>
         ))}
       </List>
     </AdminLayout>
+  );
+};
+
+type SecondaryProps = {
+  message: Message;
+};
+
+const SecondaryItem: FC<SecondaryProps> = ({ message }) => {
+  return (
+    <div>
+      <Typography variant='subtitle1'>planned: {message.plannedSendDate}</Typography>
+    </div>
   );
 };
 

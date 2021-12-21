@@ -5,12 +5,13 @@ import { getChannel, initClient } from '@serverdata/client';
 import { User } from '@slack/web-api/dist/response/UsersLookupByEmailResponse';
 import { Block, ChatPostMessageArguments, KnownBlock } from '@slack/web-api/dist/methods';
 import { ChatPostMessageResponse } from '@slack/web-api';
+import { getTemplate } from 'server/slack/templates/transfer';
 
-type Message = {
+type SlackMessage = {
   text: string;
   blocks: (KnownBlock | Block)[];
 };
-const createBirthdayMessage = (user?: User): Message => {
+const createBirthdayMessage = (user?: User): SlackMessage => {
   if (!user)
     return {
       text: '',
@@ -60,13 +61,21 @@ const call = async (req: NextApiRequest, res: NextApiResponse<ChatPostMessageRes
   const email = 'steven.straatemans@frontmen.nl';
   const { user } = await getSlackUserByEmail(email);
 
+  if (!user) {
+    throw new Error(`no user found on address: ${email}`);
+  }
+
+  const message = {
+    text: 'hier komt text',
+  } as Message;
+
   const web = initClient();
 
   const payload: ChatPostMessageArguments = {
     ok: true,
     channel: getChannel(),
     as_user: true,
-    ...createBirthdayMessage(user),
+    ...getTemplate(user, message),
   };
 
   try {
